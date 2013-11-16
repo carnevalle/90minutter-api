@@ -15,3 +15,16 @@ Route::get('/', function()
 {
 	return View::make('hello');
 });
+
+// Route group for API versioning
+Route::group(array('prefix' => 'api', 'before' => 'auth.basic'), function()
+{
+
+	Route::group(array('prefix' => 'v1'), function()
+	{
+		Route::resource('url', 'UrlController');
+	    Route::resource('players', 'PlayersController');
+	    Route::resource('matches', 'MatchesController');
+	});
+
+});
